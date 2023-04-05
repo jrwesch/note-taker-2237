@@ -30,8 +30,18 @@ app.post('/api/notes', (req, res) => {
     res.json(db);
 });
 
+//Delete - remove note from db.json, show updated database
+app.delete('/api/notes/:id', (req, res) => {
+    const newDb = db.filter((note) =>
+        note.id !== req.params.id);
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(newDb));
+
+    fs.readFile.json(newDb);
+});
+
 // read the db.json file and return saved notes as JSON
-app.get('/api/notes', (req, res) => {
+app.get('/api/notes/', (req, res) => {
     fs.readFile('./db/db.json', (err, data) => {
         if (err) throw err;
         let dbData = JSON.parse(data);
