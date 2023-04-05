@@ -39,7 +39,7 @@ app.delete('/api/notes/:id', (req, res) => {
 
     fs.writeFileSync('./db/db.json', JSON.stringify(newDb));
 
-    readFile.json(newDb);
+    res.json(newDb);
 });
 
 // read the db.json file and return saved notes as JSON
