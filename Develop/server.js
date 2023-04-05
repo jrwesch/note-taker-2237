@@ -15,6 +15,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+//POST - new note saved on request body and add to db.json
+app.post('/api/notes', (req, res) => {
+    
+    const note = req.body;
+
+    //give note a unique ID
+    note.id = uuidv4();
+
+    db.push(note);
+
+    fs.writeFileSync('./db/db.json', JSON.stringify(db));
+
+    res.json(db);
+});
+
 // read the db.json file and return saved notes as JSON
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', (err, data) => {
